@@ -1,0 +1,98 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------
+//                    SCHEMA DEFINITION
+// ---------------------------------------------------------
+
+model Brand {
+  @@map("brand")
+
+  id    Int     @map("id")    @id @default(autoincrement())
+  name  String  @map("name")  @unique
+
+  categories  BrandCategory[]
+  products    Product[]
+}
+
+model Category {
+  @@map("category")
+
+  id    Int     @map("id")    @id @default(autoincrement())
+  name  String  @map("name")  @unique
+
+  brands    BrandCategory[]
+  products  Product[]
+}
+
+model BrandCategory {
+  @@map("brand_category")
+
+  categoryId  Int @map("category_id")
+  brandId     Int @map("brand_id")
+
+  @@id([categoryId, brandId])
+
+  category  Category @relation(fields: [categoryId], references: [id])
+  brand     Brand    @relation(fields: [brandId], references: [id])
+}
+
+model Market {
+  @@map("market")
+
+  id    Int     @map("id")    @id @default(autoincrement())
+  name  String  @map("name")  @unique
+
+  orders  Order[]
+}
+
+model Order {
+  @@map("order")
+
+  id        Int       @map("id")    @id @default(autoincrement())
+  orderDate DateTime  @map("order_date")
+  total     Int       @map("total")
+  marketId  Int       @map("market_id")
+
+  itemOrder ItemOrder[]
+
+  market  Market  @relation(fields: [marketId], references: [id])
+}
+
+model Product {
+  @@map("product")
+
+  id          Int       @map("id")    @id @default(autoincrement())
+  name        String    @map("name")  @unique
+  weighable   Boolean   @map("weighable")
+  categoryId  Int       @map("category_id")
+  brandId     Int       @map("brand_id")
+
+  itemOrders  ItemOrder[]
+
+  category    Category  @relation(fields: [categoryId], references: [id])
+  brand       Brand     @relation(fields: [brandId], references: [id])
+}
+
+model ItemOrder {
+  @@map("item_order")
+
+  id            Int @map("id") @id @default(autoincrement())
+  unitCost      Int @map("unit_cost")
+  unitDiscount  Int @map("unit_discount")
+  amount        Int @map("amount")
+  productId     Int @map("product_id")
+  orderId       Int @map("order_id")
+
+  product Product @relation(fields: [productId], references: [id])
+  order   Order   @relation(fields: [orderId], references: [id])
+}
