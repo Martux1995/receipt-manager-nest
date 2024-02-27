@@ -4,7 +4,7 @@ import { IsInt, IsOptional, Min } from 'class-validator';
 import { ESortOrder } from '../enums';
 import { transformSortQueryParams } from '../utils/transform-sort';
 
-export class FindManyGenericDto<T> {
+export class GetManyGenericDto<T> {
   @IsOptional()
   @Transform(transformSortQueryParams)
   sort?: Partial<Record<keyof T, ESortOrder>>;

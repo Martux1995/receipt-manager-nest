@@ -1,1 +1,1 @@
-export * from './find-many-generic.dto';
+export * from './get-many-generic.dto';
