@@ -1,0 +1,24 @@
+{
+  "testMatch": ["**/?(*.)+(spec|test).+(ts)"],
+  "transform": {
+    "^.+.(js|ts)$": ["ts-jest", { "tsconfig": "tsconfig.json" }]
+  },
+  "maxWorkers": 5,
+  "transformIgnorePatterns": ["node_modules"],
+  "testPathIgnorePatterns": ["node_modules"],
+  "coveragePathIgnorePatterns": ["node_modules"],
+  "watchPathIgnorePatterns": ["node_modules"],
+  "collectCoverage": true,
+  "collectCoverageFrom": [
+    "src/**",
+    "!**/index.ts",
+    "!**/main.ts",
+    "!**/*.mocks.ts",
+    "!**/*.module.ts",
+    "!**/*.constants.ts",
+    "!**/*.enum.ts",
+    "!**/*.dto.ts",
+    "!**/*.entity.ts",
+    "!**/*.model.ts"
+  ]
+}
