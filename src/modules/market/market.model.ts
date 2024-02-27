@@ -1,4 +1,4 @@
 export type Market = {
-  marketId: number;
+  id: number;
   name: string;
 };

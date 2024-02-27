@@ -1,8 +1,7 @@
 export type Product = {
-  productId: number;
-  unitCost: number;
-  unitDiscount: number;
-  amount: number;
-  itemId: number;
-  orderId: number;
+  id: number;
+  name: string;
+  weighable: boolean;
+  categoryId: number;
+  brandId: number;
 };

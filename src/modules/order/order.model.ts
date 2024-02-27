@@ -1,7 +1,6 @@
 export type Order = {
-  orderId: number;
+  id: number;
   orderDate: Date;
   total: number;
-  brandId: number;
-  markedId: number;
+  marketId: number;
 };
